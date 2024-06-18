@@ -1,27 +1,13 @@
 <?php
-session_start();
+session_start(); 
 
-// Check if the token is set in the session and in the URL
-if (isset($_SESSION['verify_token']) && isset($_GET['token'])) {
-    // Verify the token
-    if ($_SESSION['verify_token'] === $_GET['token']) {
-        // Token is valid, proceed with verification
-        echo '<h1>Verification Successful</h1>';
-        // Unset the token to prevent reuse
-        unset($_SESSION['verify_token']);
-    } else {
-        // Invalid token
-        http_response_code(403);
-        header('Location: error.html');
-        exit();
-    }
-} else {
-    // Token is missing
-    http_response_code(403);
+if (!isset($_SESSION['email'])) {
     header('Location: error.html');
     exit();
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,14 +15,13 @@ if (isset($_SESSION['verify_token']) && isset($_GET['token'])) {
     <meta charset="UTF-8">
     <title>Verify Code</title>
     <style>
-        /* Remove the spin buttons in number input fields */
         input[type=number]::-webkit-outer-spin-button,
         input[type=number]::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
         input[type=number] {
-            -moz-appearance: textfield; /* Hide spin buttons in Firefox */
+            -moz-appearance: textfield;
         }
     </style>
 </head>
@@ -64,7 +49,7 @@ if (isset($_SESSION['verify_token']) && isset($_GET['token'])) {
 
             if (event.key === "Backspace" && currentField.value.length === 0) {
                 prevField.focus();
-                prevField.value = ''; // Clear the previous field to keep values intact
+                prevField.value = ''; 
             }
         }
 

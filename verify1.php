@@ -3,10 +3,9 @@ require 'config.php';
 session_start(); 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_SESSION['user_email'])) {
-        $email = $_SESSION['user_email']; 
-        
-        // Combine the code from multiple inputs into a single variable
+    if (isset($_SESSION['email'])) {
+        $email = $_SESSION['email']; 
+
         $code = "";
         $code .= $_POST['code1'];
         $code .= $_POST['code2'];
@@ -30,16 +29,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             $update_stmt->close();
         } else {
-            echo 'Invalid authentication code.';
+            header('Location: verify.php');
         }
 
         $stmt->close();
     } else {
-        echo 'Session expired or email not set.';
+        header('Location: verify.php');
     }
 
     $conn->close();
 } else {
-    echo 'Invalid request method.';
+    header('Location: error.html');
 }
 ?>

@@ -39,12 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $mail->send();
         echo 'A verification code has been sent to your email address.';
 
-        // Generate a token and store it in the session
-        $token = bin2hex(random_bytes(16));
-        $_SESSION['verify_token'] = $token;
+        $_SESSION['email'] = $email;
 
-        // Redirect to verify.html with the token as a parameter
-        header('Location: verify.php?token=' . $token);
+        // Redirect to verify.php
+        header('Location: verify.php');
         exit();
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

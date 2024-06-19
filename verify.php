@@ -23,6 +23,10 @@ if (!isset($_SESSION['email'])) {
         input[type=number] {
             -moz-appearance: textfield;
         }
+        .error{
+            display: none;
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -35,7 +39,7 @@ if (!isset($_SESSION['email'])) {
         <input type="number" id="code5" name="code5" maxlength="1" required oninput="moveToNext(this, 'code6')" onkeydown="moveToPrev(event, 'code4', 'code5')">
         <input type="number" id="code6" name="code6" maxlength="1" required oninput="checkAndSubmit()" onkeydown="moveToPrev(event, 'code5', 'code6')"><br><br>
     </form>
-
+    <p class="error" id="errorMessage">Wrong Authentication</p>
     <script>
         function moveToNext(current, nextFieldID) {
             if (current.value.length >= current.maxLength) {
@@ -65,6 +69,13 @@ if (!isset($_SESSION['email'])) {
 
             if (allFilled) {
                 form.submit();
+            }
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('error')) {
+                document.getElementById('errorMessage').style.display = 'block';
             }
         }
     </script>

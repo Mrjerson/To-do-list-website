@@ -29,7 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             $update_stmt->close();
         } else {
-            header('Location: verify.php');
+            header('Location: verify.php?error=true');
+            exit();
         }
 
         $stmt->close();

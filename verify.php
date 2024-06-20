@@ -32,6 +32,7 @@ if (!isset($_SESSION['email'])) {
 <body>
     <form id="verifyForm" action="verify1.php" method="post">
         <label for="code1">Authentication Code:</label><br>
+        <p class="error" id="errorMessage">Wrong Authentication</p>
         <input type="number" id="code1" name="code1" maxlength="1" required oninput="moveToNext(this, 'code2')" onkeydown="moveToPrev(event, 'code1')">
         <input type="number" id="code2" name="code2" maxlength="1" required oninput="moveToNext(this, 'code3')" onkeydown="moveToPrev(event, 'code1', 'code2')">
         <input type="number" id="code3" name="code3" maxlength="1" required oninput="moveToNext(this, 'code4')" onkeydown="moveToPrev(event, 'code2', 'code3')">
@@ -39,8 +40,11 @@ if (!isset($_SESSION['email'])) {
         <input type="number" id="code5" name="code5" maxlength="1" required oninput="moveToNext(this, 'code6')" onkeydown="moveToPrev(event, 'code4', 'code5')">
         <input type="number" id="code6" name="code6" maxlength="1" required oninput="checkAndSubmit()" onkeydown="moveToPrev(event, 'code5', 'code6')"><br><br>
     </form>
-    <p class="error" id="errorMessage">Wrong Authentication</p>
+    <button onclick="openResendPage()">Resend</button>
     <script>
+        function openResendPage() {
+            window.location.href = 'resend.php';
+        }
         function moveToNext(current, nextFieldID) {
             if (current.value.length >= current.maxLength) {
                 document.getElementById(nextFieldID).focus();

@@ -1,6 +1,7 @@
 <?php
 session_start();
 session_regenerate_id(true);
+
 require 'config.php'; 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];

@@ -23,7 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $update_stmt = $conn->prepare("UPDATE users SET is_active = 1 WHERE email = ?");
             $update_stmt->bind_param("s", $email);
             if ($update_stmt->execute()) {
-                echo 'Authentication successful! Your account has been verified.';
+                header('Location: login.html');
+                exit();
             } else {
                 echo 'Error updating the verification status.';
             }
